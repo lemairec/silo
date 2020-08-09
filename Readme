@@ -1,0 +1,2 @@
+pio lib install "OneWire"
+pio lib install "DallasTemperature"
