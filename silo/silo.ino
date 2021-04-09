@@ -8,14 +8,23 @@ const char *pass = "coincoin88";
 String company = "zdizy";
 String balise = "essai_1";
 
-#define ONE_WIRE_BUS 2 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+#define ONE_WIRE_BUS_1 2 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+#define ONE_WIRE_BUS_2 3 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+#define ONE_WIRE_BUS_3 4 // DS18B20 on arduino pin2 corresponds to D4 on physical board
 
 const char * host = "maplaine.fr";
 const uint16_t port = 443;
 
 
-OneWire oneWire(ONE_WIRE_BUS);
-DallasTemperature DS18B20(&oneWire);
+OneWire one_wire_1(ONE_WIRE_BUS_1);
+DallasTemperature DS18B20_1(&one_wire_1);
+
+
+OneWire one_wire_2(ONE_WIRE_BUS_2);
+DallasTemperature DS18B20_2(&one_wire_2);
+
+OneWire one_wire_3(ONE_WIRE_BUS_3);
+DallasTemperature DS18B20_3(&one_wire_3);
 
 void setup() {
     Serial.begin(115200);
