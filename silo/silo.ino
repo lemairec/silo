@@ -3,12 +3,12 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-const char *ssid = "Nordnet_lemaire";
-const char *pass = "coincoin88";
+const char *ssid = "wifi_lemaire";
+const char *pass = "lejard54";
 String company = "zdizy";
-String balise = "essai_1";
+String balise = "essai_2";
 
-#define ONE_WIRE_BUS_1 2 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+#define ONE_WIRE_BUS_1 4 // DS18B20 on arduino pin2 corresponds to D4 on physical board
 #define ONE_WIRE_BUS_2 3 // DS18B20 on arduino pin2 corresponds to D4 on physical board
 #define ONE_WIRE_BUS_3 4 // DS18B20 on arduino pin2 corresponds to D4 on physical board
 
@@ -35,14 +35,14 @@ void loop() {
     WiFi.begin(ssid, pass);
     while (WiFi.status() != WL_CONNECTED) {
         delay(1000);
-        Serial.print(".");
+        Serial.print("#");
     }
     Serial.println();
     Serial.println("Connected, IP address: ");
     Serial.println(WiFi.localIP());
 
-    DS18B20.requestTemperatures(); 
-    float temp = DS18B20.getTempCByIndex(0);
+    DS18B20_1.requestTemperatures(); 
+    float temp = DS18B20_1.getTempCByIndex(0);
     Serial.println();
     Serial.print("temp : ");
     String path2 = "/silo/api_sonde?company=" + company + "&balise=" + balise + "&temp="+temp;
@@ -71,8 +71,9 @@ void loop() {
         Serial.print("failed to connect to server");
     }
     Serial.println("wait");
-    for(int i = 0; i < 60; ++i){
+    for(int i = 0; i < 20; ++i){
         Serial.print(".");
+        Serial.print(i);
         delay(1000);
     }
     
