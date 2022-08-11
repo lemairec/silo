@@ -3,7 +3,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-//#define TEST
+#define TEST
 
 const char *ssid = "silo_dizy";
 const char *pass = "lejard02";
@@ -14,9 +14,13 @@ const char *pass = "lejard02";
 String company = "zdizy";
 String balise = "silo_m";
 
-#define ONE_WIRE_BUS_1 4 // DS18B20 on arduino pin2 corresponds to D4 on physical board
-#define ONE_WIRE_BUS_2 0 // DS18B20 on arduino pin2 corresponds to D4 on physical board
-#define ONE_WIRE_BUS_3 2 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+#define ONE_WIRE_BUS_1 5 // DS18B20 on arduino pin2 corresponds to D1 on physical board
+#define ONE_WIRE_BUS_2 4 // DS18B20 on arduino pin2 corresponds to D2 on physical board
+#define ONE_WIRE_BUS_3 0 // DS18B20 on arduino pin2 corresponds to D3 on physical board
+#define ONE_WIRE_BUS_4 2 // DS18B20 on arduino pin2 corresponds to D4 on physical board
+
+#define ONE_WIRE_BUS_E 14 // DS18B20 on arduino pin2 corresponds to D5 on physical board
+
 
 const char * host = "maplaine.fr";
 const uint16_t port = 443;
@@ -35,11 +39,21 @@ DallasTemperature DS18B20_2(&one_wire_2);
 #ifdef ONE_WIRE_BUS_3
 OneWire one_wire_3(ONE_WIRE_BUS_3);
 DallasTemperature DS18B20_3(&one_wire_3);
+#endif
+
+#ifdef ONE_WIRE_BUS_4
+OneWire one_wire_4(ONE_WIRE_BUS_4);
+DallasTemperature DS18B20_4(&one_wire_4);
+#endif
+
+#ifdef ONE_WIRE_BUS_E
+OneWire one_wire_E(ONE_WIRE_BUS_E);
+DallasTemperature DS18B20_E(&one_wire_E);
+#endif
 
 void setup() {
     Serial.begin(115200);
 }
-#endif
 
 void loop() {
 #ifdef TEST
@@ -62,6 +76,18 @@ void loop() {
     float t3 = DS18B20_3.getTempCByIndex(0);
     Serial.print("t3 : ");
     Serial.println(t3);
+#endif
+#if defined(ONE_WIRE_BUS_4) && defined(TEST)
+    DS18B20_4.requestTemperatures(); 
+    float t4 = DS18B20_4.getTempCByIndex(0);
+    Serial.print("t4 : ");
+    Serial.println(t4);
+#endif
+#if defined(ONE_WIRE_BUS_E) && defined(TEST)
+    DS18B20_E.requestTemperatures(); 
+    float te = DS18B20_E.getTempCByIndex(0);
+    Serial.print("te : ");
+    Serial.println(te);
 #endif
 
     Serial.println("connecting to network..");
@@ -101,6 +127,16 @@ void loop() {
     float temp3 = DS18B20_3.getTempCByIndex(0);
     path2 = path2 + "&t3="+temp3;
 #endif  
+#if defined(ONE_WIRE_BUS_4)
+    DS18B20_4.requestTemperatures(); 
+    float temp4 = DS18B20_4.getTempCByIndex(0);
+    path2 = path2 + "&t4="+temp4;
+#endif
+#if defined(ONE_WIRE_BUS_E)
+    DS18B20_E.requestTemperatures(); 
+    float tempe = DS18B20_E.getTempCByIndex(0);
+    path2 = path2 + "&te="+tempe;
+#endif
 
     const char * path = path2.c_str();  
 
@@ -127,7 +163,7 @@ void loop() {
         Serial.print("failed to connect to server");
     }
     Serial.println("wait");
-    for(int i = 0; i < 5*60; ++i){
+    for(int i = 0; i < 1*60; ++i){
         Serial.print(".");
         delay(1000);
     }
