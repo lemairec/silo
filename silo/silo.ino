@@ -183,7 +183,7 @@ void loop() {
         Serial.print("failed to connect to server");
     }
     Serial.println("wait");
-    for(int i = 0; i < 1*60; ++i){
+    for(int i = 0; nb_minutes < 1*60; ++i){
         Serial.print(".");
         delay(1000);
     }
