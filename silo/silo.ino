@@ -5,7 +5,7 @@
 
 #define TEST
 
-String version = "22.12.01";
+String version = "22.12.02";
 
 const char *ssid = "silo_dizy";
 const char *pass = "lejard02";
