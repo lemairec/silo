@@ -7,15 +7,17 @@
 
 String version = "22.12.02";
 
+String company = "zdizy";
+String balise = "test";
+int nb_minutes = 1;
+
 const char *ssid = "silo_dizy";
 const char *pass = "lejard02";
 
 //const char *ssid = "wifi_lemaire";
 //const char *pass = "lejard54";
-int nb_minutes = 1;
 
-String company = "zdizy";
-String balise = "test";
+
 
 #define ONE_WIRE_BUS_1 5 // DS18B20 on arduino pin2 corresponds to D1 on physical board
 #define ONE_WIRE_BUS_2 4 // DS18B20 on arduino pin2 corresponds to D2 on physical board
@@ -183,9 +185,12 @@ void loop() {
         Serial.print("failed to connect to server");
     }
     Serial.println("wait");
-    for(int i = 0; i < nb_minutes*60; ++i){
-        Serial.print(".");
-        delay(1000);
+    for(int j = 0; j < nb_minutes; ++j){
+        Serial.print(j);
+        for(int i = 0; i < nb_minutes*60; ++i){
+            Serial.print(".");
+            delay(1000);
+        }
     }
     Serial.println("");
 }
