@@ -186,13 +186,16 @@ void loop() {
     }
     Serial.println("wait");
     for(int j = 0; j < nb_minutes; ++j){
+        Serial.print("### ");
         Serial.print(j);
-        for(int i = 0; i < nb_minutes*60; ++i){
+        Serial.print(" ## ");
+        for(int i = 0; i < 60; ++i){
             Serial.print(".");
             delay(1000);
         }
+        Serial.println("");
     }
-    Serial.println("");
+
 }
 
 
