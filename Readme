@@ -17,5 +17,5 @@ pio lib install "OneWire"
 pio lib install "DallasTemperature"
 
 
-Users/lemairec/.platformio/penv/bin/platformio device monitor -b 115200
-/Users/lemairec/.platformio/penv/bin/platformio run -t upload  
+pio device monitor -b 115200
+pio run -t upload  
